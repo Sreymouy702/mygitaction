@@ -1,18 +1,22 @@
-name: Super-Linter
-
+name: Unit Tests 🧪
 on:
+  pull_request:
+    branches:
+      - 'dev*'
+      - 'releases/v*'
   push:
-
+    branches:
+      - '*'
+    tags-ignore:
+      - '*.*'
 jobs:
-  super-lint:
-    name: Lint code base
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Run Super-Linter
-        uses: github/super-linter@v3
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install and build
+        run: 
+          npm install 
+          npm run build
